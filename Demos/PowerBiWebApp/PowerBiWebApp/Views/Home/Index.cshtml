@@ -1,0 +1,40 @@
+﻿@using System.Security.Claims
+
+@if (Request.IsAuthenticated) {
+  ClaimsPrincipal userClaims = ClaimsPrincipal.Current;
+  string userName = userClaims.FindFirst("name").Value;
+
+  <text>
+
+    <div class="jumbotron">
+      <h1>Welcome @userName</h1>
+      <p class="lead">You are now logged into Azure AD as an authenticated user.</p>
+      <table class="table table-bordered table-striped table-sm" style="background-color: white;">
+        <tr><td>name:</td><td>@userClaims.FindFirst("name").Value</td></tr>
+        <tr><td>email:</td><td>@userClaims.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value</td></tr>
+        <tr><td>tenantid</td><td>@userClaims.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid").Value</td></tr>
+      </table>  
+    </div>
+
+
+  </text>
+}
+else {
+
+<div class="jumbotron">
+  <h1>This sample web application demonstrates the following</h1>
+  <ul>
+    <li>How to leverage OWIN middleware to support OpenID Connect </li>
+    <li>How to authenticate with Azure AD using the Authorization Grant Flow</li>
+    <li>How to acquire access tokens for Power BI Service API using MSAL</li>
+    <li>How to leverage the support in MSAL for token caching</li>
+    <li>How to implement user-own-data embedding</li>
+  </ul>
+
+  <div class="alert alert-success">
+    Click the <strong>sign in </strong> button in the upper right to get started.
+  </div>
+
+</div>
+
+}

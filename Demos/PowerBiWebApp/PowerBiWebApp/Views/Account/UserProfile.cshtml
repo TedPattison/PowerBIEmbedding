@@ -1,0 +1,20 @@
+﻿@using System.Security.Claims
+
+@{
+  ClaimsPrincipal userClaims = ClaimsPrincipal.Current;
+  string userName = userClaims.FindFirst("name").Value;
+}
+
+<div class="jumbotron">
+  <h1>User Profile for @userName</h1>
+  <p class="lead">The following security context information is now available to this application</p>
+  <table class="table table-bordered table-striped table-sm" style="background-color: white;">
+    <tr><td>Name:</td><td>@userClaims.FindFirst("name").Value</td></tr>
+    <tr><td>Email:</td><td>@userClaims.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value</td></tr>
+    <tr><td>AAD User Acount ID [objectidentifier]</td><td>@userClaims.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value</td></tr>
+    <tr><td>Applicaiton Id [aud]</td><td>@userClaims.FindFirst("aud").Value</td></tr>
+    <tr><td>Tenant Id</td><td>@userClaims.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid").Value</td></tr>
+    <tr><td>Token issuer [iss]</td><td>@userClaims.FindFirst("iss").Value</td></tr>
+    <tr><td>Name Identifier [nameidentifier]</td><td>@userClaims.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value</td></tr>
+  </table>
+</div>

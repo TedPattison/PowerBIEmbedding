@@ -1,0 +1,14 @@
+﻿@model PowerBiWebApp.Models.WorkspacesViewModel
+
+<h2>Workspaces</h2>
+<p class="lead">These are the workspaces to which the current user has access</p>
+
+<table class="table table-bordered table-striped table-sm" style="background-color: white;">
+
+  <tr><th>Name</th><th>ID</th></tr>
+  @foreach (var workspace in Model.workspaces) {
+    <tr><td>@workspace.Name</td><td>@workspace.Id.ToString()</td></tr>
+  }
+
+</table>
+

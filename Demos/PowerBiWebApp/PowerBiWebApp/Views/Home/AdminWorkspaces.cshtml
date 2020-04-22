@@ -1,0 +1,42 @@
+﻿@model PowerBiWebApp.Models.WorkspacesViewModel
+
+@using Microsoft.PowerBI.Api.Models;
+
+@{
+  var allWorkspaces = Model.workspaces;  
+  var activeWorkspaces = Model.workspaces.Where(delegate (Group workspace) { return workspace.State == "Active"; });
+  var deletedWorkspaces = Model.workspaces.Where(delegate (Group workspace) { return workspace.State== "Deleted"; });
+}
+
+<h2>Active Workspaces in current tenant</h2>
+<p class="lead">These are all the workspaces in the current tenant</p>
+<table class="table table-bordered table-striped table-sm" style="background-color: white;">
+  <tr><th>Name</th><th>ID</th><th>Type</th></tr>
+  @foreach (var workspace in activeWorkspaces) {
+    <tr><td>@workspace.Name</td><td>@workspace.Id.ToString()</td><td>@workspace.Type</td></tr>
+  }
+</table>
+
+<input type="button" id="btnDisplayDeletedWorkspaces" value="Display Deleted Workspaces" />
+
+<div id="deletedWorkspaces" style="display:none">
+  <h4>Deleted Workspaces</h4>
+  <table class="table table-bordered table-striped table-sm" style="background-color: white;">
+    <tr><th>Name</th><th>ID</th><th>Type</th></tr>
+    @foreach (var workspace in deletedWorkspaces) {
+      <tr><td>@workspace.Name</td><td>@workspace.Id.ToString()</td><td>@workspace.Type</td></tr>
+    }
+  </table>
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.5.0.js"></script>
+<script>
+  $("#btnDisplayDeletedWorkspaces").click(function () {
+    $("#deletedWorkspaces").show();
+    $("#btnDisplayDeletedWorkspaces").hide();
+  });
+</script>
+
+
