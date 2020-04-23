@@ -1,4 +1,3 @@
-Clear-Host
 # log into Azure AD
 $userName = "user1@tenant1.onMicrosoft.com"
 $password = ""
@@ -9,9 +8,6 @@ $credential = New-Object –TypeName System.Management.Automation.PSCredential `
 
 $authResult = Connect-AzureAD # -Credential $credential
 
-$appDisplayName = "Power BI Web App"
-$replyUrl = "https://localhost:44300"
-
 $tenantId = $authResult.TenantId.ToString()
 $tenantDomain = $authResult.TenantDomain
 $tenantDisplayName = (Get-AzureADTenantDetail).DisplayName
@@ -19,6 +15,9 @@ $tenantDisplayName = (Get-AzureADTenantDetail).DisplayName
 $userAccountId = $authResult.Account.Id
 $user = Get-AzureADUser -ObjectId $userAccountId
 $userDisplayName = $user.DisplayName
+
+$appDisplayName = "Power BI Web App"
+$replyUrl = "https://localhost:44300"
 
 # create app secret
 $newGuid = New-Guid
@@ -29,8 +28,6 @@ $passwordCredential.StartDate = $startDate
 $passwordCredential.EndDate = $startDate.AddYears(1)
 $passwordCredential.KeyId = $newGuid
 $passwordCredential.Value = $appSecret 
-
-Write-Host "Registering new app $appDisplayName in $tenantDomain"
 
 # create Azure AD Application
 $aadApplication = New-AzureADApplication `
@@ -46,11 +43,7 @@ $appId = $aadApplication.AppId
 $appObjectId = $aadApplication.ObjectId
 $serviceServicePrincipal = New-AzureADServicePrincipal -AppId $appId
 
-# assign current user as owner
-Add-AzureADApplicationOwner -ObjectId $aadApplication.ObjectId -RefObjectId $user.ObjectId
-
 $outputFile = "$PSScriptRoot\PowerBiWebApp.txt"
-$newline = "`r`n"
 Write-Host "Writing info to $outputFile"
 Out-File -FilePath $outputFile -InputObject "--- Info for $appDisplayName ---"
 Out-File -FilePath $outputFile -Append -InputObject "<add key='application-id' value='$appId' />"
