@@ -7,16 +7,14 @@ namespace PowerBIPublicClient.Models {
           "https://analysis.windows.net/powerbi/api/.default"
     };
 
-    public static readonly string[] ReadUserWorkspaces = new string[] {
-        "https://analysis.windows.net/powerbi/api/Group.Read.All"
-    };
-
     public static readonly string[] ReadWorkspaceAssets = new string[] {
-        "https://analysis.windows.net/powerbi/api/Group.Read.All",
         "https://analysis.windows.net/powerbi/api/Dashboard.Read.All",
         "https://analysis.windows.net/powerbi/api/Report.Read.All",
         "https://analysis.windows.net/powerbi/api/Dataset.Read.All",
-        "https://analysis.windows.net/powerbi/api/Dataflow.Read.All"
+    };
+
+    public static readonly string[] ReadUserWorkspaces = new string[] {
+        "https://analysis.windows.net/powerbi/api/Group.Read.All"
     };
 
     public static readonly string[] ManageWorkspaceAssets = new string[] {

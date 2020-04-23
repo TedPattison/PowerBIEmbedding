@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Configuration;
 using System.IO;
 using System.Security;
@@ -35,7 +36,7 @@ namespace PowerBIPublicClient.Models {
 
     public static PowerBIClient GetPowerBiClientInteractive(string[] scopes) {
 
-      string accessToken = TokenManager.GetAccessTokenInteractive(PowerBiPermissionScopes.ReadWorkspaceAssets);
+      string accessToken = TokenManager.GetAccessTokenInteractive(scopes);
       TokenCredentials tokenCredentials = new TokenCredentials(accessToken, "Bearer");
       PowerBIClient pbiClient = new PowerBIClient(new Uri(urlPowerBiServiceApiRoot), tokenCredentials);
       return pbiClient;
@@ -70,18 +71,20 @@ namespace PowerBIPublicClient.Models {
 
     public static string GetAccessToken(string[] scopes) {
 
-      // create new authentication context 
+      // create new public client application
       var appPublic = PublicClientApplicationBuilder.Create(applicationId)
-                    .WithAuthority(tenantCommonAuthority)
-                    .WithRedirectUri(redirectUri)
-                    .Build();
+                      .WithAuthority(tenantCommonAuthority)
+                      .WithRedirectUri(redirectUri)
+                      .Build();
 
+      // connect application to token cache
       TokenCacheHelper.EnableSerialization(appPublic.UserTokenCache);
 
       AuthenticationResult authResult;
       try {
         // try to acquire token from token cache
-        authResult = appPublic.AcquireTokenSilent(scopes, userName).ExecuteAsync().Result;
+        var user = appPublic.GetAccountsAsync().Result.FirstOrDefault();
+        authResult = appPublic.AcquireTokenSilent(scopes, user).ExecuteAsync().Result;
       }
       catch {
         try {
@@ -109,7 +112,7 @@ namespace PowerBIPublicClient.Models {
 
     static class TokenCacheHelper {
 
-      private static readonly string CacheFilePath = Assembly.GetExecutingAssembly().Location + ".msalcache.bin3";
+      private static readonly string CacheFilePath = Assembly.GetExecutingAssembly().Location + ".tokencache.json";
       private static readonly object FileLock = new object();
 
       public static void EnableSerialization(ITokenCache tokenCache) {
