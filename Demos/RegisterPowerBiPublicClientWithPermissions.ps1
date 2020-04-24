@@ -8,7 +8,6 @@ $credential = New-Object –TypeName System.Management.Automation.PSCredential `
 
 $authResult = Connect-AzureAD # -Credential $credential
 
-
 # display name for new public client app
 $appDisplayName = "Power BI Public Client"
 
