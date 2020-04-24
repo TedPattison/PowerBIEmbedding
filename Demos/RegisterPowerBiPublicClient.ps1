@@ -18,7 +18,6 @@ $user = Get-AzureADUser -ObjectId $authResult.Account.Id
 $appDisplayName = "Power BI Public Client"
 $redirectUri = "http://localhost/app1234"
 
-
 $aadApplication = New-AzureADApplication `
                         -DisplayName $appDisplayName `
                         -PublicClient $true `
