@@ -1,0 +1,60 @@
+﻿
+body{
+  background-color: #DDD;
+}
+
+#banner {
+  padding: 0px;
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  align-items: center;  
+}
+
+#app-icon {
+  float: left;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('images/AppIcon.png')
+}
+
+#app-title {
+  color: white;
+  float: left;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding-left: 12px;
+  font-size: 24px;
+}
+
+#banner ul {
+  line-height: 1em;
+  padding-left: 24px;
+}
+
+#banner ul li {
+  display: inline-block;
+  margin-right: 16px;
+}
+
+  #banner ul li button {
+    color: white;
+    font-size: 1.0em;
+    text-decoration: none;
+  }
+
+
+#welcomeMessage {
+  color: yellow;
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+#content-body{
+  background-color: white;
+}
