@@ -1,0 +1,21 @@
+﻿@page
+@model ErrorModel
+
+<div class="alert alert-danger">
+
+  <h2><i class="fa fa-bomb"></i>An error occurred while processing your request.</h2>
+  <hr/>
+  @if (Model.ShowRequestId) {
+    <p>
+      <strong>Request ID:</strong>:&nbsp;@Model.RequestId
+    </p>
+    <hr/>
+  }
+
+  <p>
+    <strong>Error Message:</strong>:&nbsp;@Model.ErrorMessage
+  </p>
+
+  <hr/>
+
+</div>

@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+
+@if (User.Identity.IsAuthenticated) {
+  string userName = @User.FindFirst("name").Value;
+
+  <div class="jumbotron">
+    <h1>Welcome @userName</h1>
+    <p class="lead">You are now logged into Azure AD as an authenticated user.</p>
+    <table class="table table-bordered table-striped table-sm" style="background-color: white;">
+      <tr><td>name:</td><td>@User.FindFirst("name").Value</td></tr>
+      <tr><td>email:</td><td>@User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value</td></tr>
+      <tr><td>tenantid</td><td>@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid").Value</td></tr>
+    </table>
+    <h3>What to do next?</h3>
+    <ul>
+      <li>Click the <strong>Embed</strong> link in the top navigation to see Power BI embedding in action</li>
+      <li>Click the <strong>Workspaces</strong> link in the top navigation to manage your app workspaces.</li>
+    </ul>
+  </div>
+
+}
+else {
+
+  <div class="jumbotron">
+    <h1>This sample web application demonstrates the following</h1>
+    <ul>
+      <li>How to leverage <strong>.NET Core 3.1</strong> and <strong>Microsoft.Identity.Web</strong> to support OpenID Connect </li>
+      <li>How to authenticate with Azure AD using the Authorization Grant Flow</li>
+      <li>How to acquire access tokens for Power BI Service API using <strong>Microsoft.Identity.Web</strong></li>
+      <li>How to leverage the support in <strong>Microsoft.Identity.Web</strong> for token caching</li>
+      <li>How to implement user-own-data embedding</li>
+    </ul>
+  </div>
+
+  <div class="alert alert-success">
+    Click the <strong>sign in</strong> link in the upper right to get started.
+  </div>
+
+}

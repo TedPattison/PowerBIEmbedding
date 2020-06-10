@@ -1,0 +1,83 @@
+﻿@page
+@model UserOwnsData.Pages.WorkspaceModel
+
+@{
+  var workspace = Model.WorkspaceDetails.Workspace;
+  var dashboards = Model.WorkspaceDetails.Dashboards;
+  var reports = Model.WorkspaceDetails.Reports;
+  var datasets = Model.WorkspaceDetails.Datasets;
+  var dataflows = Model.WorkspaceDetails.Dataflows;
+}
+
+<div class="workspaces-toolbar">
+  <a id="back-to-workspaces-button" class="btn btn-sm" asp-area="" asp-page="/Workspaces" ><i class="fa fa-backward"></i>Back to workspaces</a>
+</div>
+
+<h2>Workspace Details</h2>
+
+<table class="table table-bordered table-striped table-sm " style="width:auto">
+  <tr>
+    <td>Name</td>
+    <td>@workspace.Name</td>
+  </tr>
+  <tr>
+    <td>ID</td>
+    <td>@workspace.Id.ToString()</td>
+  </tr>
+  <tr>
+    <td>Dedicated Capacity</td>
+    <td>@workspace.IsOnDedicatedCapacity</td>
+  </tr>
+  <tr>
+    <td>Read-Only</td>
+    <td>@workspace.IsReadOnly</td>
+  </tr>
+</table>
+
+<h3>Dashboards</h3>
+@if (dashboards.Count == 0) {
+<div class="no-content">You have no dashboards</div>
+}
+else {
+<ul>
+  @foreach (var dashboard in dashboards) {
+  <li>@dashboard.DisplayName</li>
+    }
+</ul>
+}
+
+<h3>Reports</h3>
+@if (reports.Count == 0) {
+<div class="no-content">You have no reports</div>
+}
+else {
+<ul>
+  @foreach (var report in reports) {
+  <li>@report.Name</li>
+    }
+</ul>
+}
+
+<h3>Datasets</h3>
+@if (datasets.Count == 0) {
+<div class="no-content">You have no datasets</div>
+}
+else {
+<ul>
+  @foreach (var dataset in datasets) {
+  <li>@dataset.Name</li>
+    }
+</ul>
+}
+
+<h3>Dataflows</h3>
+@if (dataflows.Count == 0) {
+<div class="no-content">You have no dataflows</div>
+}
+else {
+<ul>
+  @foreach (var dataflow in dataflows) {
+  <li>@dataflow.Name</li>
+    }
+</ul>
+}
